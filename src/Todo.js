@@ -3,12 +3,14 @@ import "./todo.css"
 import List from "./components/List"
 import Item from './components/Item'
 import TodoForm from "./components/TodoForm";
+import Modal from "./components/Modal";
 
 const SAVED_ITEMS = "savedItems"
 
 function Todo(){
     let savedItems = JSON.parse(localStorage.getItem(SAVED_ITEMS));
     const [items, setItems] = useState([]);
+    const [showModal, setShowModal] = useState(false)
 
     //esse useEffects vai ser executado apenas uma vez
     //por isso o array [], ou seja,
@@ -35,7 +37,8 @@ function Todo(){
     function onAddItem(text){
 
         let it = new Item(text);
-        setItems([...items, it])
+        setItems([...items, it]);
+        onHideModal();
     } 
     
     function onItemDeleted(item){
@@ -57,12 +60,21 @@ function Todo(){
         setItems(updateItems) //atualiza o estado, ou seja redesenha a lista na tela
     }
 
+    function onHideModal(){
+        setShowModal(false)
+    }
+
+    
+
     
     return(
         <div className="container">
-            <h1>Todo</h1>
-            <TodoForm onAddItem={onAddItem}></TodoForm>
+            <header className="header"><h1>ToDo</h1><button onClick={()=>{setShowModal(true)}} className="addButton">+</button></header>
+            
             <List onDone={onDone} onItemDeleted={onItemDeleted} items={items}></List>
+            <Modal show={showModal} onHideModal = {onHideModal}>
+                <TodoForm onAddItem={onAddItem}></TodoForm> 
+            </Modal>
         </div>
     )
 

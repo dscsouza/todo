@@ -18,7 +18,7 @@ function TodoForm(props){
     }
 
     return(
-        <form>
+        <form autoFocus>
             <input type="text" onChange={handleChange} value={text}></input>
             <button onClick={addItems}>Add</button>
         </form>
