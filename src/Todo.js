@@ -1,11 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./todo.css"
 import List from "./components/List"
 import Item from './components/Item'
 import TodoForm from "./components/TodoForm";
 
+const SAVED_ITEMS = "savedItems"
+
 function Todo(){
+    let savedItems = JSON.parse(localStorage.getItem(SAVED_ITEMS));
     const [items, setItems] = useState([]);
+
+    //esse useEffects vai ser executado apenas uma vez
+    //por isso o array [], ou seja,
+    //não está monitorando nenhuma variável
+    useEffect(()=>{
+        
+        
+        console.log("local lido", savedItems );
+        if (savedItems){
+            setItems(savedItems);
+            console.log("altearado", savedItems );
+        }
+
+    }, [])
+
+    // esse useEffects vai ser executado todas as vezes que o estado
+    //de items for alterado
+    useEffect(()=>{
+        localStorage.setItem(SAVED_ITEMS, JSON.stringify(items));
+
+    }, [items])
+
 
     function onAddItem(text){
 
