@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./todo.css"
+import "./todoredux.css"
 import List from "./components/List"
 import Item from './components/Item'
 import TodoForm from "./components/TodoForm";
@@ -7,7 +7,7 @@ import Modal from "./components/Modal";
 
 const SAVED_ITEMS = "savedItems"
 
-function Todo(){
+function TodoRedux(){
     let savedItems = JSON.parse(localStorage.getItem(SAVED_ITEMS));
     const [items, setItems] = useState([]);
     const [showModal, setShowModal] = useState(false)
@@ -43,7 +43,7 @@ function Todo(){
     
     function onItemDeleted(item){
 
-        let filteredItems = items.filter(it => it.id != item.id)
+        let filteredItems = items.filter(it => it.id !== item.id)
         setItems(filteredItems)
 
     }
@@ -81,4 +81,4 @@ function Todo(){
 
 }
 
-export default Todo;
+export default TodoRedux;
