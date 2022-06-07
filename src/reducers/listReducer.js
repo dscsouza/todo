@@ -1,7 +1,7 @@
 
 // aqui serão tratadas as ações vindas do /actions/listAction.js
 // ADD_ITEM, DELETE_ITEM , CHANGE_DONE
-export default (state = [], action)=>{
+function listReducer(state = [], action){
     //dependendo do type da action, direciona para a solução específica
     switch (action.type) {
         case "ADD_ITEM":
@@ -22,7 +22,7 @@ export default (state = [], action)=>{
             //se for igual, então altera o done para cumprido ou ñ cumprido
             return state.map(item => {
                 if (item.id === action.payload){ 
-                    item.done = !item.done;
+                    item.done=!item.done;
                 }
                 return item;
             })   
@@ -31,3 +31,5 @@ export default (state = [], action)=>{
     }
 
 }
+
+export default listReducer;
